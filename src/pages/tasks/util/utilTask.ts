@@ -1,5 +1,5 @@
 export const initialState = {
-    id: 0,
+    id: 1,
     title: "",
     note: "",
     date: "",
