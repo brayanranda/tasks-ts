@@ -19,20 +19,20 @@ export const useTask = () => {
     }
 
     const newTask = ():void => {
-        if(task && Object.entries(task).length === 0) { 
-            toast('Por favor llenar el formulario.')
+        if(task && !(Object.values(task).every(key => key))) {
+            toast.error('Por favor llenar el formulario.')
         } else {
             const newTasks: ITask[] = [...tasks, {...task, id: new Date().getTime()}]
             setTasks(newTasks)
             setTask(initialState)
-            toast('Tarea creada con éxito.')
+            toast.success('Tarea creada con éxito.')
         }
     }
 
     const removeTask = (id:number) => {
         const newTasks: ITask[] = tasks.filter(task => task.id !== id);
         setTasks(newTasks)
-        toast('Tarea eliminada.')
+        toast.success('Tarea eliminada.')
     }
 
     const showModal = () => {
