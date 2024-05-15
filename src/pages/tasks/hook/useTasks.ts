@@ -1,31 +1,11 @@
 import { useState, useEffect, ChangeEvent } from 'react';
 import { ITask } from '../../../models/Task';
 import { initialState } from '../util/utilTask';
+import { toast } from 'sonner'
 
 export const useTask = () => {
     const [modal, setModal] = useState(false);
     const [tasks, setTasks] = useState<ITask[]>([]);
-    // {
-    //     "id": 1,
-    //     "title": "Título de ejemplo 1",
-    //     "note": "Nota de ejemplo 1",
-    //     "date": "2024-05-15",
-    //     "time": "10:00"
-    // },
-    // {
-    //     "id": 2,
-    //     "title": "Título de ejemplo 2",
-    //     "note": "Nota de ejemplo 2",
-    //     "date": "2024-05-16",
-    //     "time": "12:30"
-    // },
-    // {
-    //     "id": 3,
-    //     "title": "Título de ejemplo 3",
-    //     "note": "Nota de ejemplo 3",
-    //     "date": "2024-05-17",
-    //     "time": "15:45"
-    //   }
     const [task, setTask] = useState<ITask>(initialState);
 
     const getTask = () => {
@@ -39,14 +19,20 @@ export const useTask = () => {
     }
 
     const newTask = ():void => {
-        const newTasks: ITask[] = [...tasks, {...task, id: new Date().getTime()}]
-        setTasks(newTasks)
-        setTask(initialState)
+        if(task && !(Object.values(task).every(key => key))) {
+            toast.error('Por favor llenar el formulario.')
+        } else {
+            const newTasks: ITask[] = [...tasks, {...task, id: new Date().getTime()}]
+            setTasks(newTasks)
+            setTask(initialState)
+            toast.success('Tarea creada con éxito.')
+        }
     }
 
     const removeTask = (id:number) => {
         const newTasks: ITask[] = tasks.filter(task => task.id !== id);
         setTasks(newTasks)
+        toast.success('Tarea eliminada.')
     }
 
     const showModal = () => {
