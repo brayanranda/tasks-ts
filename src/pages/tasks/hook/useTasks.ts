@@ -22,10 +22,9 @@ export const useTask = () => {
         if(task && !(Object.values(task).every(key => key))) {
             toast.error('Por favor llenar el formulario.')
         } else {
-            const newTasks: ITask[] = [...tasks, {...task, id: new Date().getTime()}]
-            setTasks(newTasks)
-            setTask(initialState)
+            setTasks([...tasks, {...task, id: new Date().getTime()}])
             toast.success('Tarea creada con éxito.')
+            setTask(initialState)
         }
     }
 
