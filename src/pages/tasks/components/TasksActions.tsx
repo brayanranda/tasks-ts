@@ -1,14 +1,20 @@
-import { cssArticle, cssBtnSucess, cssSection } from "../../../utils/cssConsts";
+import { cssArticle, cssBtnSucess, cssSection, cssTitle } from "../../../utils/cssConsts";
 
-function TasksActions() {
+interface Props {
+    showModal: () => void
+    modal: boolean;
+}
+
+function TasksActions({ showModal, modal }: Props) {
     return (
         <section className={cssSection}>
             <article className={`flex items-center justify-between ${cssArticle}`}>
-                <p>Tasks</p>
+                <p className={cssTitle}>Lista de tareas</p>
                 <button
+                    onClick={() => { showModal() }}
                     className={cssBtnSucess}
                 >
-                    Add
+                    {modal ? "Ocultar" : "Agregar"}
                 </button>
             </article>
         </section>
